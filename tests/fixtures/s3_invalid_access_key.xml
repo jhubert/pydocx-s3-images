@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Error>
+    <Code>InvalidAccessKeyId</Code>
+    <Message>The AWS Access Key Id you provided does not exist in our records.</Message>
+    <AWSAccessKeyId>AKIAJETQK5USCLQCJL2Atest</AWSAccessKeyId>
+    <RequestId>96F764BAB7654C61</RequestId>
+    <HostId>fUbVTr/BbtGgnb21KTAGAHA2mkPvX4IPoyTdse9X085HF1kKRsfCFjvj97VbTTNjKwe/wkUSMvU=</HostId>
+</Error>

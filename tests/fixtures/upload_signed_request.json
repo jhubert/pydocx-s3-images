@@ -1,0 +1,9 @@
+{
+  "AWSAccessKeyId": "AKIAJETQK5USCLQCJL2A",
+  "x-amz-storage-class": "STANDARD",
+  "url": "http://pydocx.s3.amazonaws.com/",
+  "acl": "bucket-owner-full-control",
+  "key": "uploads/pydocx/${filename}",
+  "signature": "2zzyCY2QgCLyFJG+9vJyucBP4G0=",
+  "policy": "eyJleHBpcmF0aW9uIjogIjIwMTctMDctMTJUMTU6MDA6MjlaIiwKImNvbmRpdGlvbnMiOiBbWyJzdGFydHMtd2l0aCIsICIkQ29udGVudC1UeXBlIiwgIiJdLHsiYnVja2V0IjogInB5ZG9jeCJ9LFsic3RhcnRzLXdpdGgiLCAiJGtleSIsICJ1cGxvYWRzL3B5ZG9jeC8iXSx7ImFjbCI6ICJidWNrZXQtb3duZXItZnVsbC1jb250cm9sIn0sWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsIDAsIDEwMDAwMDAwMF0seyJ4LWFtei1zdG9yYWdlLWNsYXNzIjogIlNUQU5EQVJEIn1dfQ=="
+}
