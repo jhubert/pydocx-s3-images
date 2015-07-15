@@ -8,10 +8,11 @@ from __future__ import (
 from unittest import TestCase
 import json
 
+import responses
+
 from pydocxs3upload.exceptions import ImageUploadException
 from pydocxs3upload.image_upload import S3ImageUploader, ImageUploader
 from pydocxs3upload.test.utils import get_fixture, mock_request
-import responses
 
 
 def get_signed_request():

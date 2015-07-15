@@ -28,9 +28,6 @@ class ImageUploader(object):
 
 class S3ImageUploader(ImageUploader):
     def __init__(self, signed_data):
-        # print ("="*10, type(signed_data), "="*10)
-        # print ("="*10, isinstance(signed_data, str), "="*10)
-
         if isinstance(signed_data, six.string_types):
             signed_data = json.loads(signed_data)
 
