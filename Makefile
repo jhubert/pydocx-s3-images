@@ -23,7 +23,7 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 
 lint:
-	flake8 pydocxs3upload tests
+	flake8 --max-line-length=100 pydocxs3upload tests
 
 test:
 	nosetests --verbose --with-doctest --with-coverage --cover-package pydocxs3upload
