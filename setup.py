@@ -52,7 +52,7 @@ def main():
         ],
         cmdclass={},
         classifiers=[
-            "Development Status :: 1 - Alpha",
+            # "Development Status :: 1 - Alpha",
             "Programming Language :: Python",
             "Programming Language :: Python :: 2",
             "Programming Language :: Python :: 2.6",

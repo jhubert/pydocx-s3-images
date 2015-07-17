@@ -17,7 +17,7 @@ Install
 
 The quick way::
 
-    pip install pydocx-s3-images
+    pip install pydocxs3upload
 
 
 Usage
