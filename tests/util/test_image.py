@@ -9,12 +9,14 @@ from unittest import TestCase
 
 from pydocxs3upload.util import image
 from pydocxs3upload.test.utils import get_fixture, mock_request
+import responses
 
 
 class GetImageDataAndFileNameTestCase(TestCase):
+    @responses.activate
     def test_get_image_data_and_filename(self):
         uri = 'http://httpbin.org/image/png'
-        mock_request(uri, method='GET', status=200, fixture='image1.png')
+        mock_request(uri, method='GET', status=200, fixture='image1.png', include_location=False)
 
         img_data, filename = image.get_image_data_and_filename(uri, 'png.png')
         local_data = get_fixture('image1.png', as_binary=True)
@@ -29,9 +31,10 @@ class GetImageDataAndFileNameTestCase(TestCase):
         self.assertEqual('', img_data)
         self.assertEqual('png.png', filename)
 
+    @responses.activate
     def test_get_image_from_src_url(self):
         uri = 'http://httpbin.org/image/png'
-        mock_request(uri, method='GET', status=200, fixture='image1.png')
+        mock_request(uri, method='GET', status=200, fixture='image1.png', include_location=False)
 
         web_data = image.get_image_from_src(uri)
 
