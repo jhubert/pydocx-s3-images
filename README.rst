@@ -43,7 +43,7 @@ Here is an example of mixin usage:
     signed_request = '<signed json string>'
     exporter = PyDocXHTMLExporterS3ImageUpload(docx_path, s3_upload=signed_request)
     
-    html = exporter.parsed
+    html = exporter.export()
 
 Note that you can use the same signed request to convert any docs you want. So, in order to avoid uploading images with the same name and
 overriding previous one, each image is appended a timestamp which makes it unique. If, for some reasons, you don't want this feature by default
