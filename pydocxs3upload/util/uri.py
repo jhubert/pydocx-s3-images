@@ -3,6 +3,7 @@ from __future__ import (
 )
 
 import re
+import posixpath
 
 try:
     # Python 3
@@ -47,3 +48,17 @@ def sanitize_filename(filename):
         _, filename = filename.rsplit('-', 1)
 
     return unquote(filename).encode('utf-8')
+
+
+def get_uri_filename(uri):
+    _, filename = posixpath.split(uri)
+
+    return filename
+
+
+def uri_is_internal(uri):
+    return uri.startswith('/')
+
+
+def uri_is_external(uri):
+    return not uri_is_internal(uri)

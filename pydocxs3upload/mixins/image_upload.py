@@ -7,6 +7,7 @@ from __future__ import (
 import time
 
 from ..util.image import get_image_data_and_filename
+from ..util.uri import get_uri_filename, uri_is_external
 from ..image_upload import S3ImageUploader
 
 
@@ -22,12 +23,20 @@ class S3ImageUploadMixin(object):
 
         self.image_uploader = uploader_cls(s3_upload)
 
-    def image(self, image_data, filename, x, y, uri_is_external):
-        if uri_is_external:
+    def get_image_tag(self, image, width=None, height=None):
+        if not image:
+            return ''
+
+        filename = get_uri_filename(image.uri)
+
+        if uri_is_external(image.uri):
             image_data, filename = get_image_data_and_filename(
-                image_data,
+                image.uri,
                 filename,
             )
+        else:
+            image.stream.seek(0)
+            image_data = image.stream.read()
 
         if self.unique_filename:
             # make sure that the filename is unique so that it will not rewrite
@@ -36,13 +45,7 @@ class S3ImageUploadMixin(object):
 
         s3_url = self.image_uploader.upload(image_data, filename)
 
-        image_data = s3_url
-        uri_is_external = True
+        # set the external uri to the amazon s3
+        image.uri = s3_url
 
-        return super(S3ImageUploadMixin, self).image(
-            image_data,
-            filename,
-            x,
-            y,
-            uri_is_external
-        )
+        return super(S3ImageUploadMixin, self, ).get_image_tag(image, width, height)

@@ -42,7 +42,7 @@ class PyDocXHTMLExporterS3ImageUploadTestCase(TestCase):
             'unique_filename': False
         }
 
-        html = self.exporter(docx_file_path, **kwargs).parsed
+        html = self.exporter(docx_file_path, **kwargs).export()
 
         assert_html_equal(html, html_file_content)
 
@@ -59,7 +59,7 @@ class PyDocXHTMLExporterS3ImageUploadTestCase(TestCase):
             'unique_filename': True
         }
 
-        html = self.exporter(docx_file_path, **kwargs).parsed
+        html = self.exporter(docx_file_path, **kwargs).export()
 
         # we can't check here for the exact html content as the file name is
         # generated dynamically so, we use regexp
@@ -88,6 +88,6 @@ class PyDocXHTMLExporterS3ImageUploadTestCase(TestCase):
             'unique_filename': False
         }
 
-        html = self.exporter(docx_file_path, **kwargs).parsed
+        html = self.exporter(docx_file_path, **kwargs).export()
 
         assert_html_equal(html_file_content, html)
