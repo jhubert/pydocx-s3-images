@@ -24,7 +24,7 @@ class S3ImageUploadMixin(object):
         self.image_uploader = uploader_cls(s3_upload)
 
     def get_image_tag(self, image, width=None, height=None):
-        if not image:
+        if self.first_pass or not image:
             return ''
 
         filename = get_uri_filename(image.uri)
