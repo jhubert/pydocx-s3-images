@@ -91,3 +91,25 @@ class PyDocXHTMLExporterS3ImageUploadTestCase(TestCase):
         html = self.exporter(docx_file_path, **kwargs).export()
 
         assert_html_equal(html_file_content, html)
+
+    @responses.activate
+    def test_export_docx_to_html_rotate_image(self):
+        mock_request()
+
+        docx_file_path = get_fixture('rotate_image.docx')
+
+        signed_request = get_fixture('upload_signed_request.json', as_binary=True)
+
+        html_file_content = get_fixture(
+            'rotate_image.html',
+            as_binary=True
+        )
+
+        kwargs = {
+            's3_upload': signed_request,
+            'unique_filename': False
+        }
+
+        html = self.exporter(docx_file_path, **kwargs).export()
+
+        assert_html_equal(html, html_file_content)

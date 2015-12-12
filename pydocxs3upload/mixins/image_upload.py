@@ -23,7 +23,7 @@ class S3ImageUploadMixin(object):
 
         self.image_uploader = uploader_cls(s3_upload)
 
-    def get_image_tag(self, image, width=None, height=None):
+    def get_image_tag(self, image, width=None, height=None, **kwargs):
         if self.first_pass or not image:
             return ''
 
@@ -48,4 +48,4 @@ class S3ImageUploadMixin(object):
         # set the external uri to the amazon s3
         image.uri = s3_url
 
-        return super(S3ImageUploadMixin, self, ).get_image_tag(image, width, height)
+        return super(S3ImageUploadMixin, self, ).get_image_tag(image, width, height, **kwargs)
