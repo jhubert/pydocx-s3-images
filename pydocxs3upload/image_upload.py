@@ -4,21 +4,16 @@ from __future__ import (
     unicode_literals,
 )
 
-import json
 import base64
+import json
 from xml.etree import ElementTree
+
 import requests
+import six
+from six.moves.urllib.parse import unquote
 
 from .exceptions import ImageUploadException
 from .util import uri, image
-import six
-
-try:
-    # Python 3
-    from urllib.parse import unquote
-except ImportError:
-    # Python 2
-    from urlparse import unquote
 
 
 class ImageUploader(object):
@@ -47,7 +42,8 @@ class S3ImageUploader(ImageUploader):
 
         if not self._s3_url:
             self._s3_url = self.signed_data.pop('url',
-                                                self.AWS_URL.format(bucket_name=self.bucket_name))
+                                                self.AWS_URL.format(
+                                                    bucket_name=self.bucket_name))
 
         return self._s3_url
 

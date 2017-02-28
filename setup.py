@@ -48,7 +48,8 @@ def main():
         scripts=[],
         zip_safe=False,
         install_requires=[
-            'requests>=2.7.0'
+            'requests>=2.7.0',
+            'six>=1.10.0'
         ],
         cmdclass={},
         classifiers=[

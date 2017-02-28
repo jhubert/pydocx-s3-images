@@ -4,20 +4,14 @@ from __future__ import (
     unicode_literals,
 )
 
-import posixpath
 import os
+import posixpath
 
 import requests
 from requests.exceptions import InvalidSchema, MissingSchema
+from six.moves.urllib.parse import urlparse
 
 from . import uri
-
-try:
-    # Python 3
-    from urllib.parse import urlparse
-except ImportError:
-    # Python 2
-    from urlparse import urlparse
 
 
 def get_image_data_and_filename(image_data_or_url, filename):

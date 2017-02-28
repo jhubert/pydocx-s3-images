@@ -13,17 +13,9 @@ import base64
 
 import responses
 
-try:
-    # Python 3
-    from urllib.parse import urljoin, urlparse
-except ImportError:
-    # Python 2
-    from urlparse import urlparse, urljoin
+from six.moves.urllib.parse import urlparse, urljoin
 
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
+from io import BytesIO
 
 
 def prettify(xml_string):
@@ -100,7 +92,12 @@ def get_fixture(fix_name, as_binary=False):
     )
 
     if as_binary:
-        with open(file_path, 'rb') as f:
+        mode = 'r'
+        _, ext = os.path.splitext(fix_name)
+        if ext not in ['.html', '.json', '.xml']:
+            mode = 'rb'
+
+        with open(file_path, mode) as f:
             return f.read()
     else:
         return file_path
@@ -137,7 +134,7 @@ def mock_request(url=None, method=responses.POST, status=204, body='', fixture=N
             rbody = request.body
 
             _, pdict = cgi.parse_header(request.headers['Content-Type'])
-            data = cgi.parse_multipart(StringIO(rbody), pdict)
+            data = cgi.parse_multipart(BytesIO(rbody), pdict)
 
             # TODO find a better way to take filename
             filename = re.search(r'filename="(.+?)"', rbody).group(1)
