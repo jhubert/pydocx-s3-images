@@ -41,9 +41,8 @@ class S3ImageUploader(ImageUploader):
         """Get s3 url from signed request. If not found, use default one"""
 
         if not self._s3_url:
-            self._s3_url = self.signed_data.pop('url',
-                                                self.AWS_URL.format(
-                                                    bucket_name=self.bucket_name))
+            default = self.AWS_URL.format(bucket_name=self.bucket_name)
+            self._s3_url = self.signed_data.pop('url', default)
 
         return self._s3_url
 
@@ -52,7 +51,8 @@ class S3ImageUploader(ImageUploader):
         """Find the bucket name from input signed request data"""
 
         if not self._bucket_name:
-            policy_data = json.loads(base64.b64decode(self.signed_data['policy']))
+            decoded_data = base64.b64decode(self.signed_data['policy'])
+            policy_data = json.loads(decoded_data)
 
             bucket_name = None
 
@@ -67,7 +67,10 @@ class S3ImageUploader(ImageUploader):
 
     @classmethod
     def image_data_decode(cls, image_data):
-        """We can have image data in multiple formats: binary or as image data base64 encoded"""
+        """
+        We can have image data in multiple formats: binary
+        or as image data base64 encoded
+        """
 
         match = uri.is_encoded_image_uri(image_data)
         if match:

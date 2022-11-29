@@ -48,4 +48,7 @@ class S3ImageUploadMixin(object):
         # set the external uri to the amazon s3
         image.uri = s3_url
 
-        return super(S3ImageUploadMixin, self, ).get_image_tag(image, width, height, **kwargs)
+        return super(S3ImageUploadMixin, self, ).get_image_tag(image,
+                                                               width,
+                                                               height,
+                                                               **kwargs)

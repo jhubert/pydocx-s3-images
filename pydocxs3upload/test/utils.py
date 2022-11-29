@@ -116,8 +116,8 @@ def _get_bucket_name(policy):
     return bucket_name
 
 
-def mock_request(url=None, method=responses.POST, status=204, body='', fixture=None,
-                 content_type='', include_location=True):
+def mock_request(url=None, method=responses.POST, status=204, body='',
+                 fixture=None, content_type='', include_location=True):
     """Helper to mock requests to amazon s3"""
 
     if fixture:
@@ -140,11 +140,14 @@ def mock_request(url=None, method=responses.POST, status=204, body='', fixture=N
             # TODO find a better way to take filename
             filename = re.search(r'filename="(.+?)"', str(rbody)).group(1)
 
-            key_name = data['key'][0].decode("utf-8").replace('${filename}', filename)
+            key_name_string = data['key'][0].decode("utf-8")
             policy = data['policy'][0].decode("utf-8")
+
+            key_name = key_name_string.replace('${filename}', filename)
             bucket_name = _get_bucket_name(policy)
 
-            img_url = urljoin('http://%s.s3.amazonaws.com/' % bucket_name, key_name)
+            img_url = urljoin('http://%s.s3.amazonaws.com/' % bucket_name,
+                              key_name)
             img_url = img_url.replace('http', o.scheme)
 
             # Make sure we return the image url the same as AWS.

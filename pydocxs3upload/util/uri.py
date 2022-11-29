@@ -7,7 +7,7 @@ import re
 
 from six.moves.urllib.parse import unquote
 
-regexp_pattern = 'data:image/(?P<extension>\w+);base64,(?P<image_data>.+)'
+regexp_pattern = r'data:image/(?P<extension>\w+);base64,(?P<image_data>.+)'
 
 IMAGE_DATA_URI_REGEX = {
     'bytes': re.compile(regexp_pattern.encode()),
@@ -32,7 +32,7 @@ def sanitize_filename(filename):
     by a dash (-) to make the image unique for round-tripping. In an effort to
     prevent a bunch of timestamps preceding the image name (in the event a
     document is round-tripped several times), strip off the timestamp
-    and dash. When images come from docx they are always `image\d+`. We only
+    and dash. When images come from docx they are always `image{N}`. We only
     want to strip off the timestamp and dash if they were programmatically
     added.
     """
