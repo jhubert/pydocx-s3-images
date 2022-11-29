@@ -17,7 +17,7 @@ from pydocxs3upload.test.utils import get_fixture, mock_request
 
 def get_signed_request():
     signed_request = get_fixture('upload_signed_request.json', as_binary=True)
-    signed_request = json.loads(signed_request.decode())
+    signed_request = json.loads(signed_request)
 
     return signed_request
 

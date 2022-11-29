@@ -134,13 +134,15 @@ def mock_request(url=None, method=responses.POST, status=204, body='', fixture=N
             rbody = request.body
 
             _, pdict = cgi.parse_header(request.headers['Content-Type'])
+            pdict['boundary'] = bytes(pdict['boundary'], 'utf-8')
             data = cgi.parse_multipart(BytesIO(rbody), pdict)
 
             # TODO find a better way to take filename
-            filename = re.search(r'filename="(.+?)"', rbody).group(1)
+            filename = re.search(r'filename="(.+?)"', str(rbody)).group(1)
 
-            key_name = data['key'][0].replace('${filename}', filename)
-            bucket_name = _get_bucket_name(data['policy'][0])
+            key_name = data['key'][0].decode("utf-8").replace('${filename}', filename)
+            policy = data['policy'][0].decode("utf-8")
+            bucket_name = _get_bucket_name(policy)
 
             img_url = urljoin('http://%s.s3.amazonaws.com/' % bucket_name, key_name)
             img_url = img_url.replace('http', o.scheme)
